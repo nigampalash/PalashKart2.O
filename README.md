@@ -80,14 +80,10 @@ Project-root/
 ## ⚙️ Installation & Setup
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/nigampalash/PRODIGY_WD_01.git
-cd PRODIGY_WD_01
-
-# 2. Install dependencies
+# 1. Install dependencies
 npm install
 
-# 3. Run the server (with auto-restart)
+# 2. Run the server (with auto-restart)
 nodemon app.js
 # OR plain run
 node app.js
