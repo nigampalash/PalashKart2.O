@@ -134,12 +134,6 @@ No official license applied yet — feel free to fork and explore!
 
 ---
 
-## 🌐 Links
-
-* 🔗 GitHub Repo: [PRODIGY\_WD\_01](https://github.com/nigampalash/PRODIGY_WD_01)
-
----
-
 > Made with 💻 by Palash under the guidance of Sonam Maan
 
 ```
