@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+<div class="container">
+  <h2>Checkout</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th><th>Qty</th><th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let total = 0; cart.forEach(item => { total += item.price * item.qty; %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.qty %></td>
+          <td>₹<%= item.price * item.qty %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2"><b>Total</b></td>
+        <td><b>₹<%= total %></b></td>
+      </tr>
+    </tfoot>
+  </table>
+  <form action="/shop/pay" method="POST">
+    <button type="submit" class="btn btn-primary">Pay Now</button>
+  </form>
+</div>
+<%- include('partials/footer') %>

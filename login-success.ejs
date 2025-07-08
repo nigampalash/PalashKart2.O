@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+<div class="form-container" style="text-align:center;">
+  <h2 style="color:#43cea2;">Successfully logged in!</h2>
+  <p>Welcome, <%= user.firstName %> (<%= user.id %>)</p>
+  <a href="/shop"><button>Shop Now</button></a>
+</div>
+<script>
+  const clickSound = new Audio('/click.mp3');
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+  });
+</script>
+<%- include('partials/footer') %>

@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+<div class="form-container" style="text-align:center;">
+  <h2 style="color:#43cea2;">Purchase Successful!</h2>
+  <p>Thank you, <%= user.firstName %>! You have bought:</p>
+  <ul style="list-style:none; padding:0;">
+    <% cart.forEach(item => { %>
+      <li><b><%= item.name %></b> x <%= item.qty %></li>
+    <% }) %>
+  </ul>
+  <a href="/shop"><button>Back to Shop</button></a>
+</div>
+<script>
+  const clickSound = new Audio('/click.mp3');
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+  });
+</script>
+<%- include('partials/footer') %>

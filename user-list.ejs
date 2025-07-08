@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+<div class="container">
+  <h2>User List</h2>
+  <div class="mb-3 d-flex justify-content-between">
+    <input type="text" id="searchInput" class="form-control w-50" placeholder="Search by ID number">
+    <form method="POST" action="/auth/delete-all" onsubmit="return confirm('Delete all users?');">
+      <button type="submit" class="btn btn-danger ms-2">Delete All</button>
+    </form>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Number</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="userTableBody">
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.firstName %></td>
+          <td><%= user.lastName %></td>
+          <td><%= user.number %></td>
+          <td><%= user.email %></td>
+          <td><%= user.address %></td>
+          <td>
+            <form method="POST" action="/auth/delete/<%= user.id %>" style="display:inline;" onsubmit="return confirm('Delete this user?');">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<script>
+  // Search by ID number only
+  document.getElementById('searchInput').addEventListener('input', function() {
+    const filter = this.value.trim();
+    document.querySelectorAll('#userTableBody tr').forEach(row => {
+      const id = row.children[0].textContent.trim();
+      row.style.display = (filter === "" || id === filter) ? "" : "none";
+    });
+  });
+</script>
+<%- include('partials/footer') %>

@@ -1,0 +1,112 @@
+<%- include('partials/header') %>
+<link href="https://fonts.googleapis.com/css?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    background: linear-gradient(135deg, #1a1a1a 0%, #232526 100%);
+    color: #fff;
+    font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  }
+  .product-card {
+    background: linear-gradient(135deg, #232526 0%, #ffd600 100%);
+    border: 2px solid #ffd600;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px 0 #ffd60055, 0 1.5px 0 #fff3;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .product-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 8px 40px 0 #ffd60099, 0 2px 0 #fff6;
+  }
+  .card-title, .price {
+    color: #ffd600;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 8px #fff2;
+  }
+  .card-text {
+    color: #fffde7;
+    font-size: 1.05em;
+  }
+  .btn-add, .btn-success {
+    background: linear-gradient(90deg, #ffd600 60%, #fff700 100%);
+    color: #232526;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ffd60055;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .btn-add:hover, .btn-success:hover {
+    background: linear-gradient(90deg, #fff700 60%, #ffd600 100%);
+    color: #000;
+    box-shadow: 0 4px 16px #ffd60099;
+  }
+  .glass-btn {
+    backdrop-filter: blur(4px);
+    background: rgba(255, 214, 0, 0.85);
+    color: #232526;
+    border: 1.5px solid #fffde7;
+  }
+  .glass-btn:disabled {
+    background: #444;
+    color: #ffd60088;
+    border: 1.5px solid #ffd60044;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ffd600;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar {
+    background: #232526;
+    width: 8px;
+  }
+</style>
+
+<div class="container my-5">
+  <div class="row row-cols-2 row-cols-md-3 g-4">
+    <% products.forEach(product => { %>
+      <div class="col">
+        <div class="card h-100 product-card glass-card">
+          <img src="<%= product.image %>" class="card-img-top" alt="<%= product.name %>">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text"><%= product.desc %></p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <span class="price">₹<%= product.price.toLocaleString() %></span>
+              <form method="POST" action="/shop/add-to-cart" style="display:inline;">
+                <input type="hidden" name="productId" value="<%= product.id %>">
+                <button class="btn btn-add glass-btn" type="submit">Add to Cart</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <% if (cart && cart.length > 0) { %>
+    <form method="GET" action="/shop/checkout">
+      <button class="btn btn-success glass-btn mt-4" type="submit">
+        Proceed to Checkout (<%= cart.reduce((sum, item) => sum + item.qty, 0) %> items)
+      </button>
+    </form>
+  <% } else { %>
+    <button class="btn btn-success glass-btn mt-4" type="button" disabled>
+      Proceed to Checkout (0 items)
+    </button>
+  <% } %>
+</div>
+
+<script>
+  const clickSound = new Audio('/click.mp3');
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function () {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+  });
+</script>
+
+<%- include('partials/footer') %>
