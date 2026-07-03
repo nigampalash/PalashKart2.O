@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+<div class="form-container">
+  <h2>Login</h2>
+  <% if (error) { %>
+    <div class="error"><%= error %></div>
+  <% } %>
+  <form action="/auth/login" method="POST">
+    <label>Email or ID Number:</label>
+    <input type="text" name="idOrEmail" placeholder="e.g. 1000 or admin@palashkart.com" required>
+    <label>Password:</label>
+    <input type="password" name="password" placeholder="••••••" required>
+    <button type="submit">Login</button>
+  </form>
+  <div style="margin-top:20px; font-size:0.85em; color:#555; border-top:1px dashed #ccc; padding-top:15px;">
+    <p style="margin:5px 0;">💡 <strong>Quick Testing Accounts:</strong></p>
+    <p style="margin:3px 0;">👑 <strong>Admin:</strong> <code>admin@palashkart.com</code> / <code>admin123</code></p>
+    <p style="margin:3px 0;">👤 <strong>User:</strong> <code>user@palashkart.com</code> / <code>user123</code></p>
+  </div>
+</div>
+<script>
+  const clickSound = new Audio('/click.mp3');
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+  });
+</script>
+<%- include('partials/footer') %>

@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+<div class="form-container">
+  <h2>Register - Step 2</h2>
+  <% if (error) { %>
+    <div class="error"><%= error %></div>
+  <% } %>
+  <form action="/auth/register-step2" method="POST">
+    <label>Email:</label>
+    <input type="email" name="email" value="<%= values.email || '' %>" required>
+    <label>Password:</label>
+    <input type="password" name="password" required>
+    <label>Role:</label>
+    <select name="role" style="width: 100%; padding: 10px; border-radius: 7px; border: 1.5px solid #43cea2; margin-bottom: 12px; background: rgba(248, 255, 174, 0.2); font-size: 1.1em; color: #185a9d; cursor: pointer;">
+      <option value="user" <%= values.role === 'user' ? 'selected' : '' %>>User</option>
+      <option value="admin" <%= values.role === 'admin' ? 'selected' : '' %>>Admin</option>
+    </select>
+    <button type="submit">Register</button>
+  </form>
+</div>
+<script>
+  const clickSound = new Audio('/click.mp3');
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+  });
+</script>
+<%- include('partials/footer') %>

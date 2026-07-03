@@ -1,0 +1,152 @@
+<%- include('partials/header') %>
+<link href="https://fonts.googleapis.com/css?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    background: linear-gradient(135deg, #1a1a1a 0%, #232526 100%);
+    color: #fff;
+    font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  }
+  .form-container {
+    background: rgba(35, 37, 38, 0.9);
+    border: 2px solid #ffd600;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px 0 #ffd60044;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    backdrop-filter: blur(8px);
+  }
+  .form-container h2 {
+    color: #ffd600;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(255, 214, 0, 0.3);
+    text-align: center;
+  }
+  label {
+    color: #ffd600;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    margin-top: 15px;
+    display: block;
+  }
+  input[type="text"], input[type="number"], textarea, input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1.5px solid #ffd600;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    transition: all 0.2s;
+  }
+  input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+    border-color: #fff700;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(255, 214, 0, 0.4);
+  }
+  input[type="file"]::file-selector-button {
+    background: #ffd600;
+    border: none;
+    border-radius: 4px;
+    color: #232526;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    transition: background 0.2s;
+  }
+  input[type="file"]::file-selector-button:hover {
+    background: #fff700;
+  }
+  .btn-submit {
+    background: linear-gradient(90deg, #ffd600 0%, #fff700 100%);
+    color: #232526;
+    width: 100%;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    box-shadow: 0 4px 15px rgba(255, 214, 0, 0.3);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-submit:hover {
+    background: linear-gradient(90deg, #fff700 0%, #ffd600 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 214, 0, 0.5);
+  }
+  .error {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff5252;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1.5px solid #ff5252;
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.9em;
+  }
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #ffd600;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.2s;
+  }
+  .back-link:hover {
+    color: #fff700;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="form-container">
+  <h2>Add New Mobile Device</h2>
+  
+  <% if (error) { %>
+    <div class="error"><%= error %></div>
+  <% } %>
+  
+  <form action="/shop/add-product" method="POST" enctype="multipart/form-data">
+    <label for="name">Device Name:</label>
+    <input type="text" id="name" name="name" placeholder="e.g. OnePlus Nord 4" required>
+    
+    <label for="price">Price (₹):</label>
+    <input type="number" id="price" name="price" placeholder="e.g. 29999" min="1" required>
+    
+    <label for="desc">Device Specifications:</label>
+    <textarea id="desc" name="desc" placeholder="e.g. 8 GB RAM | 128 GB ROM | 6.7 inch Fluid AMOLED Display" rows="3" required></textarea>
+    
+    <label for="productImage">Device Image:</label>
+    <input type="file" id="productImage" name="productImage" accept="image/*">
+    
+    <button type="submit" class="btn-submit">Upload Device</button>
+  </form>
+  
+  <a href="/shop" class="back-link">← Cancel and Back to Shop</a>
+</div>
+
+<script>
+  const clickSound = new Audio('/click.mp3');
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('button, .back-link').forEach(elem => {
+      elem.addEventListener('click', function () {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+  });
+</script>
+
+<%- include('partials/footer') %>

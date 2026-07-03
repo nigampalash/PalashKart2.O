@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PalashKart</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <nav style="display:flex;gap:2em;justify-content:center;align-items:center;margin:1em 0;flex-wrap:wrap;">
+      <a href="/">Home</a>
+      <% if (loggedIn && user) { %>
+        <a href="/shop">Shop</a>
+        <% if (user.role === 'admin') { %>
+          <a href="/shop/add-product">Add Product</a>
+          <a href="/auth/user-list">User List</a>
+        <% } %>
+        <a href="/auth/logout">Logout</a>
+        <span style="margin-left: 20px; font-weight: 600; color: #ffe082; background: rgba(24, 90, 157, 0.4); padding: 5px 12px; border-radius: 20px; font-size: 0.9em;">
+          👤 <%= user.firstName %> (<%= user.role %>)
+        </span>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Register</a>
+        <a href="/shop">Shop</a>
+      <% } %>
+    </nav>
+  </header>
+  <main>
